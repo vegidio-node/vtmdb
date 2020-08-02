@@ -1,6 +1,6 @@
 {
     "name": "vtmdb",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "A more modern library to access the content of TMDb",
     "author": "Vinicius Egidio <me@vinicius.io>",
     "license": "ISC",
@@ -15,7 +15,7 @@
         "@typescript-eslint/parser": "3.7.1",
         "axios": "^0.19.2",
         "eslint": "7.6.0",
-        "file-type": "14.6.2",
+        "file-type": "14.7.0",
         "jest": "26.2.2",
         "ts-jest": "26.1.4",
         "ts-loader": "8.0.2",

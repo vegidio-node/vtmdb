@@ -34,9 +34,9 @@ export default class RestService
 
         const show = new Show()
         show.id = json.id
-        show.title = json.title
-        show.originalTitle = json.original_title
-        show.overview = json.overview
+        show.title = json.title === '' ? undefined : json.title
+        show.originalTitle = json.original_title === '' ? undefined : json.original_title
+        show.overview = json.overview === '' ? undefined : json.overview
         show.images = this.createImages(json)
         show.videos = this.createVideos(json)
 
