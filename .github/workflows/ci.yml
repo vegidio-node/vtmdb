@@ -1,0 +1,38 @@
+name: build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  push:
+    if: "!contains(github.event.head_commit.message, '[skip-ci]')"
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    steps:
+      - name: Set-up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Test the library
+        run: |
+          yarn
+          yarn test
+      - name: Send stats to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+
+      - name: Build the package
+        run: yarn build
+
+      - name: Upload package to the registry
+        run: |
+          yarn publish --non-interactive

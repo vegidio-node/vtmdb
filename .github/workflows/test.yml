@@ -1,15 +1,14 @@
 name: test
 
 on:
-  push:
-    branches:
-      - master
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 10 * * *'
 
 jobs:
   push:
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
     steps:
       - name: Set up Node.js
@@ -20,8 +19,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: Testing & Building the template
+      - name: Test the library
         run: |
           yarn
           yarn test
-          yarn build

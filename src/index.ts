@@ -1,7 +1,5 @@
-import * as config from 'config'
-import logger from './logger'
+import Tmdb from './controllers/Tmdb'
+import Show from './models/show.model'
 
-const serverConfig = config.util.toObject(config.get('server'))
-
-const msg = `Server running on ${serverConfig.host}:${serverConfig.port}`
-logger.info(msg)
+export default Tmdb
+export { Show }

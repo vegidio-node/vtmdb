@@ -1,59 +1,87 @@
-# TypeScript (Template)
+# vtmdb
 
-[![GitHub Actions](https://img.shields.io/github/workflow/status/vegidio/template-typescript/test?label=tests)](https://github.com/vegidio/template-typescript/actions)
-[![TypeScript](https://img.shields.io/npm/types/vimdb.svg)](https://www.typescriptlang.org)
-[![ISC License](https://img.shields.io/npm/l/vimdb?color=important)](LICENSE.txt)
+[![GitHub Actions](https://img.shields.io/github/workflow/status/vegidio-node/vtmdb/test?label=tests)](https://github.com/vegidio-node/vtmdb/actions)
+[![Codecov](https://img.shields.io/codecov/c/github/vegidio-node/vtmdb)](https://codecov.io/gh/vegidio-node/vtmdb)
+[![NPM Downloads](https://img.shields.io/npm/dt/vtmdb.svg)](https://www.npmjs.com/package/vtmdb)
+[![TypeScript](https://img.shields.io/npm/types/vtmdb.svg)](https://www.typescriptlang.org)
+[![ISC License](https://img.shields.io/npm/l/vtmdb?color=important)](LICENSE.txt)
 
-A template project for TypeScript with the usual scripts to **run**, **lint**, **build** and **test** the source code.
+A more modern library to access the content of TMDB (under development).
+
+## ⚙️ Installation
+
+In your project root folder, enter the following command in the terminal:
+
+```
+$ yarn add vtmdb
+```
+or, if you use NPM:
+
+```
+$ npm install vtmdb
+```
 
 ## 🤖 Usage
 
-Clone the repository and in the project directory install its dependencies by running `yarn` in the terminal. Afterwards you can run the following scripts:
+Import the class `Tmdb` in your project and initialize it passing the parameters for the API key and the language that you want to get the results. For example, `new Tmdb('pt-BR')` will return results in Brazilian Portuguese.
 
-- `yarn build`: to create an app bundle. The entry point is the file `./src/index.ts` and the resolving binary will be saved in `./build/app.bundle.js`.
-- `yarn lint`: to statically check the code with ESLint.
-- `yarn start`: to execute the code. The entry point is the file `.src/index.ts`.
-- `yarn test`: to run the tests specified in the folder `./test`.
+If no language parameter is specified then the default language will be set to English.
 
-## 🧩 Dependencies
+### Get a show by ID
 
-This template depends on a few Node packages in order to work. All dependencies under the __devDependencies__ scope are mandatory; the most notable ones are:
+```typescript
+// Import the package in your script and initialize the Tmdb class
+import Tmdb from 'vtmdb'
+const tmdb = new Tmdb()
 
-- [eslint](https://www.npmjs.com/package/eslint): a tool for identifying and reporting problems in TypeScript code.
-- [jest](https://www.npmjs.com/package/jest): a JavaScript test framework.
-- [ts-node](https://www.npmjs.com/package/ts-node): a TypeScript execution environment.
-- [typescript](https://www.npmjs.com/package/typescript): the TypeScript language support.
-- [webpack](https://www.npmjs.com/package/webpack): a module bundler for JavaScript.
-
-## 🗂 Directory Structure
-
-This project follows the directory structure below:
-
-```
-[root]
-  ├── build/
-  ├── src/
-  │   └── index.ts
-  └── test/
+// Get the details of the show "The Simpsons"
+tmdb.getShow('tt0096697')
+    .then(console.log)
 ```
 
-where:
+And the response should be something similar to this:
 
-- `build/`: is the directory containing the binaries created by the project. This folder is auto-generated and you shouldn't manually put any file here.
-- `src/`: is the directory where you will place the project code. The entry point of the project's execution is the file `index.ts`.
-- `test/`: is the directory where you will place your test scripts.
+```json
+{
+    "identifier": "tt0096697",
+    "url": "https://www.Tmdb.com/title/tt0096697",
+    "name": "The Simpsons",
+    "summary": "The satiric adventures of a working-class family in the misfit city of Springfield.",
+    "description": "This is an animated sitcom about the antics of a dysfunctional family. Homer is the oafish unhealthy beer loving father, Marge is the hardworking homemaker wife, Bart is the perpetual ten-year-old underachiever (and proud of it), Lisa is the unappreciated eight-year-old genius, and Maggie is the cute, pacifier loving silent infant.",
+    "year": 1989,
+    "contentRating": "TV-PG",
+    "alternativeName": null,
+    "duration": 22,
+    "aggregateRating": { "ratingValue": 8.7, "ratingCount": 353617 },
+    "genre": [ "Animation", "Comedy" ],
+    "image": {
+        "small": "https://m.media-amazon.com/images/M/MV5BYjFkMTlkYWUtZWFhNy00M2FmLThiOTYtYTRiYjVlZWYxNmJkXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_UX182_CR0,0,182,268_AL_.jpg",
+        "big": "https://m.media-amazon.com/images/M/MV5BYjFkMTlkYWUtZWFhNy00M2FmLThiOTYtYTRiYjVlZWYxNmJkXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SY1000_CR0,0,666,1000_AL_.jpg"
+    },
+    "recommended": [
+        { "identifier": "tt0121955", "name": "South Park" },
+        { "identifier": "tt0182576", "name": "Family Guy" },
+        { "identifier": "tt0149460", "name": "Futurama" },
+        { "identifier": "tt0397306", "name": "American Dad!" },
+        { "identifier": "tt0462538", "name": "The Simpsons Movie" },
+        { "identifier": "tt0412142", "name": "House" },
+        { "identifier": "tt2861424", "name": "Rick and Morty" },
+        { "identifier": "tt2085059", "name": "Black Mirror" },
+        { "identifier": "tt1628033", "name": "Top Gear" },
+        { "identifier": "tt0098904", "name": "Seinfeld" },
+        { "identifier": "tt3398228", "name": "BoJack Horseman" },
+        { "identifier": "tt0367279", "name": "Arrested Development" }
+    ]
+}
+```
 
-### Important Files
+### Documentation
 
-- `.eslintrc`: ESLint configuration file; you can change the linting rules here.
-- `jest.config.js`: Jest configuration file; you can change the test parameters here.
-- `tsconfig.json`: TypeScript configuration file; you can change how TypeScript transpile the files here.
-- `types.d.ts`: File where you create the definitions for the JS modules that don't have TypeScript support.
-- `webpack.config.ts`: Webpack configuration file; you can change how the project bundle is created here.
+For detailed information on how to use this package, please check the [API reference](https://vegidio-node.github.io/vtmdb) for more examples.
 
 ## 📝 License
 
-**TypeScript (Template)** is released under the ISC License. See [LICENSE](LICENSE.txt) for details.
+**vtmdb** is released under the ISC License. See [LICENSE](LICENSE.txt) for details.
 
 ## 👨🏾‍💻 Author
 
