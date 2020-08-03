@@ -1,6 +1,6 @@
 {
     "name": "vtmdb",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "A more modern library to access the content of TMDb",
     "author": "Vinicius Egidio <me@vinicius.io>",
     "license": "ISC",

@@ -1,11 +1,11 @@
-import Tmdb, { Show } from '../src'
+import Tmdb, { Series, SourceType } from '../src'
 
-let show: Show
+let series: Series
 
 beforeAll(async () => {
     jest.setTimeout(60000)
     const tmdb = new Tmdb('ab0f13160cec15449ab79e705a1c636c')
-    show = await tmdb.findByExternalId('tt8111088', 'imdb_id')
+    series = await tmdb.findByExternalId('tt8111088', SourceType.imdb)
 })
 
 describe('The Mandalorian is correctly fetched (EN)', () =>

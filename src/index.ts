@@ -1,5 +1,7 @@
 import Tmdb from './controllers/Tmdb'
-import Show from './models/show.model'
+import Movie from './models/movie.model'
+import Series from './models/series.model'
+import { SourceType } from './enums'
 
 export default Tmdb
-export { Show }
+export { Movie, Series, SourceType }

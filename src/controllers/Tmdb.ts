@@ -1,5 +1,6 @@
 import RestService from '../services/rest.service'
 import Show from '../models/show.model'
+import { SourceType } from '../enums'
 
 export default class Tmdb
 {
@@ -10,7 +11,7 @@ export default class Tmdb
         this.rest = new RestService(apiKey, language)
     }
 
-    async findByExternalId(id: string, source: string): Promise<Show>
+    async findByExternalId(id: string, source: SourceType): Promise<Show>
     {
         return this.rest.fetchFindByExternalId(id, source)
     }

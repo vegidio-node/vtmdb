@@ -1,10 +1,10 @@
 import { Image, Video } from '../types'
 
-export default class Show
+export default abstract class Show
 {
     id: string
-    title: string
-    originalTitle: string
+    name: string
+    originalName: string
     overview: string
     images: Image
     videos: Video[]

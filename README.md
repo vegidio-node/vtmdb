@@ -6,7 +6,9 @@
 [![TypeScript](https://img.shields.io/npm/types/vtmdb.svg)](https://www.typescriptlang.org)
 [![ISC License](https://img.shields.io/npm/l/vtmdb?color=important)](LICENSE.txt)
 
-A more modern library to access the content of TMDB (under development).
+A more modern package to access the content of TMDb.
+
+# 🚧 This package is in alpha stage. Use at your own risk! 🚧
 
 ## ⚙️ Installation
 
@@ -32,7 +34,7 @@ If no language parameter is specified then the default language will be set to E
 ```typescript
 // Import the package in your script and initialize the Tmdb class
 import Tmdb from 'vtmdb'
-const tmdb = new Tmdb()
+const tmdb = new Tmdb('apikey')
 
 // Get the details of the show "The Simpsons"
 tmdb.getShow('tt0096697')

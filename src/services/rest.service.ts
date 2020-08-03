@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
-import Show from '../models/show.model'
+import Movie from '../models/movie.model'
+import Series from '../models/series.model'
 import { Image, Video } from '../types'
 
 export default class RestService
@@ -18,29 +19,48 @@ export default class RestService
         })
     }
 
-    async fetchFindByExternalId(id: string, source: string): Promise<Show>
+    async fetchFindByExternalId(id: string, source: string): Promise<Movie | Series>
     {
         const response = await this.client.get( `find/${id}?external_source=${source}`)
         const json = response.data
 
         let _id = json.movie_results[0]?.id
         if (_id) return this.fetchMovieById(_id)
+
+        _id = json.tv_results[0]?.id
+        if (_id) return this.fetchSeriesById(_id)
     }
 
-    async fetchMovieById(id: string): Promise<Show>
+    async fetchMovieById(id: string): Promise<Movie>
     {
         const response = await this.client.get(`movie/${id}?append_to_response=images,videos`)
         const json = response.data
 
-        const show = new Show()
-        show.id = json.id
-        show.title = json.title === '' ? undefined : json.title
-        show.originalTitle = json.original_title === '' ? undefined : json.original_title
-        show.overview = json.overview === '' ? undefined : json.overview
-        show.images = this.createImages(json)
-        show.videos = this.createVideos(json)
+        const movie = new Movie()
+        movie.id = json.id
+        movie.name = json.title === '' ? undefined : json.title
+        movie.originalName = json.original_title === '' ? undefined : json.original_title
+        movie.overview = json.overview === '' ? undefined : json.overview
+        movie.images = this.createImages(json)
+        movie.videos = this.createVideos(json)
 
-        return show
+        return movie
+    }
+
+    async fetchSeriesById(id: string): Promise<Series>
+    {
+        const response = await this.client.get(`tv/${id}?append_to_response=images,videos`)
+        const json = response.data
+
+        const series = new Series()
+        series.id = json.id
+        series.name = json.name === '' ? undefined : json.name
+        series.originalName = json.original_name === '' ? undefined : json.original_name
+        series.overview = json.overview === '' ? undefined : json.overview
+        series.images = this.createImages(json)
+        series.videos = this.createVideos(json)
+
+        return series
     }
 
     // region - Private methods
